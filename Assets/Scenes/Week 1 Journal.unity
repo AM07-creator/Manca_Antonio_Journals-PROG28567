@@ -445,13 +445,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1345350637}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 1345350642}
+        m_TargetAssemblyTypeName: RowGeneration, Assembly-CSharp
+        m_MethodName: DrawSquares
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -510,6 +510,7 @@ MonoBehaviour:
   numberInputField: {fileID: 1600995763}
   squareSize: 1
   gapBetweenSquares: 0.5
+  squareColor: {r: 0, g: 1, b: 0, a: 1}
 --- !u!1 &1369527595
 GameObject:
   m_ObjectHideFlags: 0
