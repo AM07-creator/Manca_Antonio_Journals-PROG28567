@@ -48,6 +48,9 @@ public class Player : MonoBehaviour
 		float distanceCovered = (Time.time - time) * speed;
 		float fractionOfWarp = distanceCovered / lerpLength;
 		transform.position = Vector3.Lerp(player.position, enemy.position, fractionOfWarp);
+
+		//Task 4
+		//DetectAsteroids();
 	}
 	void SpawnBombAtOffset(Vector3 inOffset)
 	{
@@ -79,6 +82,10 @@ public class Player : MonoBehaviour
 	{
 		//https://docs.unity3d.com/ScriptReference/Vector3.Lerp.html
 
+	}
+	public void DetectAsteroids(float inMaxRange, List<Transform> inAsteroids)
+	{
+		
 	}
 	Vector2 Normalizer(Vector2 normalized)
 	{
