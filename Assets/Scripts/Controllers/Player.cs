@@ -7,12 +7,20 @@ public class Player : MonoBehaviour
 	public Transform enemyTransform;
 	public GameObject bombPrefab;
 	public List<Transform> asteroidTransforms;
+	public Transform player;
+	public Transform enemy;
+	public float speed = 1f;
+	float time;
+	float lerpLength;
 
 	private void Start()
 	{
 		Debug.Log(Normalizer(new Vector2(4, 4)));
 		Debug.Log(Normalizer(new Vector2(-3, 2)));
 		Debug.Log(Normalizer(new Vector2(1.5f, -3.5f)));
+
+		time = Time.time;
+		lerpLength = Vector3.Distance(player.position, enemy.position);
 	}
 
 	// Update is called once per frame
@@ -31,6 +39,15 @@ public class Player : MonoBehaviour
 		{
 			//SpawnBombOnRandomCorner();
 		}
+		if (Keyboard.current.wKey.wasPressedThisFrame)
+		{
+			//WarpPLayer();
+		}
+
+		//Task 3
+		float distanceCovered = (Time.time - time) * speed;
+		float fractionOfWarp = distanceCovered / lerpLength;
+		transform.position = Vector3.Lerp(player.position, enemy.position, fractionOfWarp);
 	}
 	void SpawnBombAtOffset(Vector3 inOffset)
 	{
@@ -56,6 +73,12 @@ public class Player : MonoBehaviour
 		Vector3 topRight = new Vector3(playerPos.x + 0.5f, playerPos.y + 0.5f, playerPos.z);
 		Vector3 bottomLeft = new Vector3(playerPos.x - 0.5f, playerPos.y - 0.5f, playerPos.z);
 		Vector3 bottomRight = new Vector3(playerPos.x + 0.5f, playerPos.y - 0.5f, playerPos.z);
+	}
+	//Pressing wKey will cause the player to warp a random distance towards the enemy using a lerp
+	public void WarpPLayer(Transform target, float ratio)
+	{
+		//https://docs.unity3d.com/ScriptReference/Vector3.Lerp.html
+
 	}
 	Vector2 Normalizer(Vector2 normalized)
 	{
