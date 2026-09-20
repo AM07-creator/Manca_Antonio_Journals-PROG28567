@@ -27,6 +27,10 @@ public class Player : MonoBehaviour
 			//Create 3 bombs, spaced 0.5 units apart on the y axis
 			SpawnBombTrail(0.5f, 3);
 		}
+		if (Keyboard.current.rKey.wasPressedThisFrame)
+		{
+			//SpawnBombOnRandomCorner();
+		}
 	}
 	void SpawnBombAtOffset(Vector3 inOffset)
 	{
@@ -44,6 +48,14 @@ public class Player : MonoBehaviour
 			Vector3 spawnPos = transform.position + (behindPlayer * (i * inBombSpacing));
 			GameObject trailInstance = Instantiate(bombPrefab, spawnPos, Quaternion.identity);
 		}
+	}
+	//Added my own return for a vector3 position around the player. This will be randomly picked between the 4 corners when the Rkey is pressed this frame
+	void SpawnBombOnRandomCorner(Vector3 playerPos, float inDistance)
+	{
+		Vector3 topLeft = new Vector3(playerPos.x - 0.5f, playerPos.y + 0.5f, playerPos.z);
+		Vector3 topRight = new Vector3(playerPos.x + 0.5f, playerPos.y + 0.5f, playerPos.z);
+		Vector3 bottomLeft = new Vector3(playerPos.x - 0.5f, playerPos.y - 0.5f, playerPos.z);
+		Vector3 bottomRight = new Vector3(playerPos.x + 0.5f, playerPos.y - 0.5f, playerPos.z);
 	}
 	Vector2 Normalizer(Vector2 normalized)
 	{
