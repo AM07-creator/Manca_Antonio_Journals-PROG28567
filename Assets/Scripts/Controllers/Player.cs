@@ -8,10 +8,13 @@ public class Player : MonoBehaviour
 	public GameObject bombPrefab;
 	public List<Transform> asteroidTransforms;
 	public Transform player;
-	public Transform enemy;
-	public float speed = 1f;
+	public float maxSpeed = 1f;
 	float time;
 	float lerpLength;
+	public float accelerationTime = 1f;
+	float acceleration;
+	Vector3 velocity = Vector3.zero;
+	Vector3 playerMovement;
 
 	private void Start()
 	{
@@ -20,7 +23,9 @@ public class Player : MonoBehaviour
 		Debug.Log(Normalizer(new Vector2(1.5f, -3.5f)));
 
 		time = Time.time;
-		lerpLength = Vector3.Distance(player.position, enemy.position);
+		lerpLength = Vector3.Distance(player.position, enemyTransform.position);
+
+		acceleration = maxSpeed / accelerationTime;
 	}
 
 	// Update is called once per frame
@@ -45,12 +50,13 @@ public class Player : MonoBehaviour
 		}
 
 		//Task 3
-		float distanceCovered = (Time.time - time) * speed;
-		float fractionOfWarp = distanceCovered / lerpLength;
-		transform.position = Vector3.Lerp(player.position, enemy.position, fractionOfWarp);
+		//float distanceCovered = (Time.time - time) * speed;
+		//float fractionOfWarp = distanceCovered / lerpLength;
+		//transform.position = Vector3.Lerp(player.position, enemy.position, fractionOfWarp);
 
 		//Task 4
 		//DetectAsteroids();
+		PlayerMovement();
 	}
 	void SpawnBombAtOffset(Vector3 inOffset)
 	{
@@ -86,6 +92,32 @@ public class Player : MonoBehaviour
 	public void DetectAsteroids(float inMaxRange, List<Transform> inAsteroids)
 	{
 		
+	}
+	public void PlayerMovement()
+	{
+		if (Keyboard.current.leftArrowKey.isPressed)
+		{
+			velocity += Time.deltaTime * acceleration * Vector3.left;
+		}
+		if (Keyboard.current.rightArrowKey.isPressed)
+		{
+			velocity += Time.deltaTime * acceleration * Vector3.right;
+		}
+		if (Keyboard.current.upArrowKey.isPressed)
+		{
+			velocity += Time.deltaTime * acceleration * Vector3.up;
+		}
+		if (Keyboard.current.downArrowKey.isPressed)
+		{
+			velocity += Time.deltaTime * acceleration * Vector3.down;
+		}
+		if (velocity.magnitude > maxSpeed)
+		{
+			velocity = velocity.normalized * maxSpeed;
+		}
+		//velocity = Vector3.ClampMagnitude(velocity, maxSpeed);
+
+		transform.position += Time.deltaTime * velocity;
 	}
 	Vector2 Normalizer(Vector2 normalized)
 	{
