@@ -22,8 +22,8 @@ public class Player : MonoBehaviour
 		Debug.Log(Normalizer(new Vector2(-3, 2)));
 		Debug.Log(Normalizer(new Vector2(1.5f, -3.5f)));
 
-		time = Time.time;
-		lerpLength = Vector3.Distance(player.position, enemyTransform.position);
+		//time = Time.time;
+		//lerpLength = Vector3.Distance(player.position, enemyTransform.position);
 
 		acceleration = maxSpeed / accelerationTime;
 	}
@@ -49,12 +49,12 @@ public class Player : MonoBehaviour
 			//WarpPLayer();
 		}
 
-		//Task 3
-		//float distanceCovered = (Time.time - time) * speed;
+		//Task 3 W2
+		//float distanceCovered = (Time.time - time) * maxSpeed;
 		//float fractionOfWarp = distanceCovered / lerpLength;
-		//transform.position = Vector3.Lerp(player.position, enemy.position, fractionOfWarp);
+		//transform.position = Vector3.Lerp(player.position, enemyTransform.position, fractionOfWarp);
 
-		//Task 4
+		//Task 4 W2
 		//DetectAsteroids();
 		PlayerMovement();
 	}
