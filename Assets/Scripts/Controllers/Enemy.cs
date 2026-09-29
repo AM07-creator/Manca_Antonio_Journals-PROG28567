@@ -35,6 +35,6 @@ public class Enemy : MonoBehaviour
 
 		transform.position += Time.deltaTime * velocity;
 
-		lerpEnemy.transform.position = Vector3.Lerp(playerObject.transform.position, enemyObject.transform.position, maxSpeed);
+		//lerpEnemy.transform.position = Vector3.Lerp(playerObject.transform.position, enemyObject.transform.position, maxSpeed);
 	}
 }
