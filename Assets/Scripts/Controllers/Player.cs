@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
+	#region Week's 1-3
 	public Transform enemyTransform;
 	public GameObject bombPrefab;
 	public List<Transform> asteroidTransforms;
@@ -15,9 +16,22 @@ public class Player : MonoBehaviour
 	float acceleration;
 	Vector3 velocity = Vector3.zero;
 	Vector3 playerMovement;
+	#endregion
+	[Space]
+	#region Week 4
+	public List<float> angles = new ();
+	int currentIndex = 0;
+	public Vector3 startPoint;
+	public float duration = 1f;
+	float elapsedTime = 0f;
+	public float radarRadius = 3f;
+	public int shapeSidesCount = 8;
+
+	#endregion
 
 	private void Start()
 	{
+		#region Week 2
 		Debug.Log(Normalizer(new Vector2(4, 4)));
 		Debug.Log(Normalizer(new Vector2(-3, 2)));
 		Debug.Log(Normalizer(new Vector2(1.5f, -3.5f)));
@@ -26,11 +40,22 @@ public class Player : MonoBehaviour
 		//lerpLength = Vector3.Distance(player.position, enemyTransform.position);
 
 		acceleration = maxSpeed / accelerationTime;
+
+		#endregion
+		#region Week 4 In-Class
+
+		for (int i = 0; i < 10; i++)
+		{
+			float randomAngle = Random.Range(0f, 360f);
+			angles.Add(randomAngle);
+		}
+		#endregion
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
+		#region Week's 1-3
 		if (Keyboard.current.bKey.wasPressedThisFrame)
 		{
 			SpawnBombAtOffset(Vector3.up);
@@ -57,7 +82,37 @@ public class Player : MonoBehaviour
 		//Task 4 W2
 		//DetectAsteroids();
 		PlayerMovement();
+		#endregion
+		#region Week 4 in-Class
+		//Unit Circle Exercise Week 5
+		elapsedTime += Time.deltaTime;
+		if (elapsedTime > duration)
+		{
+			currentIndex = (currentIndex + 1) % angles.Count;
+			elapsedTime = 0f;
+		}
+
+		if (Keyboard.current.spaceKey.wasPressedThisFrame)
+		{
+			currentIndex = (currentIndex + 1) % angles.Count;
+		}
+
+		float angle = angles[currentIndex];
+		float angleInRads = angle * Mathf.Deg2Rad;
+
+		float xPos = Mathf.Cos(angle);
+		float yPos = Mathf.Sin(angle);
+
+		Vector3 offset = new Vector3(xPos, yPos, 0f);
+
+		Debug.DrawLine(startPoint, startPoint + offset);
+		#endregion Week 4 In-Class
+
+		#region Week 4 Journal
+		EnemyRadar(radarRadius, shapeSidesCount);
+		#endregion
 	}
+	#region Week's 1-3
 	void SpawnBombAtOffset(Vector3 inOffset)
 	{
 		Instantiate(bombPrefab, transform.position + inOffset, Quaternion.identity);
@@ -126,4 +181,48 @@ public class Player : MonoBehaviour
 
 		return normalized;
 	}
+	#endregion
+	#region Week 5 Journal
+	void EnemyRadar(float radius, int circlePoints)
+	{
+		//Float variable equal to 360 degrees, divided by the number of sides in our circular drawn shape
+		//To evenly space all angle changes across the 360 degrees
+		float stepAngle = 360.0f / circlePoints;
+		//Local List to store angle changes (points) of the circle
+		List<Vector3> points = new();
+
+
+		stepAngle *= Mathf.Deg2Rad;
+		float currentAngle = stepAngle;
+
+		//For loop that calculates the x and y position of points on the circle using inverse trig functions
+		for (int i = 0; i < circlePoints; i++)
+		{
+			float xPos = Mathf.Cos(currentAngle) * radius;
+			float yPos = Mathf.Sin(currentAngle) * radius;
+
+			//Local Vector3 takes the x and y pos calculations above and makes them a new 2D point in the list
+			Vector3 newPoint = new Vector2(xPos, yPos);
+			points.Add(newPoint);
+
+			currentAngle += stepAngle;
+		}
+		//For loop that draws the circle around the player's current position
+		for (int i = 0; i < circlePoints - 1; i++)
+		{
+			Vector3 startPoint = transform.position + points[i];
+			Vector3 endPoint = transform.position + points[i + 1];
+
+			Debug.DrawLine(startPoint, endPoint, Color.green);
+
+			if (i == circlePoints - 2)
+			{
+				startPoint = transform.position + points[i + 1];
+				endPoint = transform.position + points[0];
+
+				Debug.DrawLine(startPoint, endPoint, Color.green);
+			}
+		}
+	}
+	#endregion
 }

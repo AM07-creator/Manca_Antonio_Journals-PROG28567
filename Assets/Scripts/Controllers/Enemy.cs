@@ -22,7 +22,7 @@ public class Enemy : MonoBehaviour
 	}
 	private void Update()
     {
-		EnemyMovement();
+		//EnemyMovement();
     }
     public void EnemyMovement()
     {
