@@ -186,6 +186,7 @@ public class Player : MonoBehaviour
 	}
 	#endregion
 	#region Week 4 Journal
+	//Task 1
 	void EnemyRadar(float radius, int circlePoints)
 	{
 		//Float variable equal to 360 degrees, divided by the number of sides in our circular drawn shape
@@ -238,6 +239,7 @@ public class Player : MonoBehaviour
 			}
 		}
 	}
+	//Task 2
 	void SpawnPowerups(float radius, int numberOfPowerups)
 	{
 		float stepAngle = 360.0f / numberOfPowerups;
