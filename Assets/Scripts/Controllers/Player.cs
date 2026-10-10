@@ -190,7 +190,18 @@ public class Player : MonoBehaviour
 		float stepAngle = 360.0f / circlePoints;
 		//Local List to store angle changes (points) of the circle
 		List<Vector3> points = new();
+		Color radarColor = Color.green;
 
+		//If the enemy is within range of the player, turn the radar red
+		if (enemyTransform != null)
+		{
+			float distanceToEnemy = Vector3.Distance(transform.position, enemyTransform.position);
+
+			if (distanceToEnemy <= radius)
+			{
+				radarColor = Color.red;
+			}
+		}
 
 		stepAngle *= Mathf.Deg2Rad;
 		float currentAngle = stepAngle;
@@ -213,14 +224,14 @@ public class Player : MonoBehaviour
 			Vector3 startPoint = transform.position + points[i];
 			Vector3 endPoint = transform.position + points[i + 1];
 
-			Debug.DrawLine(startPoint, endPoint, Color.green);
+			Debug.DrawLine(startPoint, endPoint, radarColor);
 
 			if (i == circlePoints - 2)
 			{
 				startPoint = transform.position + points[i + 1];
 				endPoint = transform.position + points[0];
 
-				Debug.DrawLine(startPoint, endPoint, Color.green);
+				Debug.DrawLine(startPoint, endPoint, radarColor);
 			}
 		}
 	}
