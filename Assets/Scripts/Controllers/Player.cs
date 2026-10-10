@@ -26,6 +26,7 @@ public class Player : MonoBehaviour
 	float elapsedTime = 0f;
 	public float radarRadius = 3f;
 	public int shapeSidesCount = 8;
+	public int powerupSpawnPointsCount = 4;
 
 	#endregion
 
@@ -110,6 +111,8 @@ public class Player : MonoBehaviour
 
 		#region Week 4 Journal
 		EnemyRadar(radarRadius, shapeSidesCount);
+
+		SpawnPowerups(radarRadius, powerupSpawnPointsCount);
 		#endregion
 	}
 	#region Week's 1-3
@@ -182,7 +185,7 @@ public class Player : MonoBehaviour
 		return normalized;
 	}
 	#endregion
-	#region Week 5 Journal
+	#region Week 4 Journal
 	void EnemyRadar(float radius, int circlePoints)
 	{
 		//Float variable equal to 360 degrees, divided by the number of sides in our circular drawn shape
@@ -232,6 +235,43 @@ public class Player : MonoBehaviour
 				endPoint = transform.position + points[0];
 
 				Debug.DrawLine(startPoint, endPoint, radarColor);
+			}
+		}
+	}
+	void SpawnPowerups(float radius, int numberOfPowerups)
+	{
+		float stepAngle = 360.0f / numberOfPowerups;
+		List<Vector3> powerupSpawnPoints = new();
+		Color powerupColor = Color.green;
+
+		stepAngle *= Mathf.Deg2Rad;
+		float currentSpawn = stepAngle;
+
+		for (int i = 0; i < numberOfPowerups; i++)
+		{
+			float xPos = Mathf.Cos(currentSpawn) * radius;
+			float yPos = Mathf.Sin(currentSpawn) * radius;
+
+			//Local Vector3 takes the x and y pos calculations above and makes them a new 2D point in the list
+			Vector3 newPoint = new Vector2(xPos, yPos);
+			powerupSpawnPoints.Add(newPoint);
+
+			currentSpawn += stepAngle;
+		}
+		//For loop that draws points around the player's current location
+		for (int i = 0; i < numberOfPowerups - 1; i++)
+		{
+			Vector3 powerup = transform.position + powerupSpawnPoints[i];
+			Vector3 powerupEnd = transform.position + powerupSpawnPoints[i + 1];
+
+			Debug.DrawLine(powerup, powerupEnd = powerup + Vector3.up * 0.1f, powerupColor);
+
+			if (i == numberOfPowerups - 2)
+			{
+				powerup = transform.position + powerupSpawnPoints[i + 1];
+				powerupEnd = transform.position + powerupSpawnPoints[0];
+
+				Debug.DrawLine(powerup, powerupEnd = powerup + Vector3.up * 0.1f, powerupColor);
 			}
 		}
 	}
