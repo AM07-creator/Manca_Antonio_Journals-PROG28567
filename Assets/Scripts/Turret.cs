@@ -3,7 +3,7 @@ using UnityEngine;
 public class Turret : MonoBehaviour
 {
     [Tooltip("Measured in degrees per second.")]
-    public float angularSpeed;
+    public float angularSpeed = 1;
     public Transform target;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
