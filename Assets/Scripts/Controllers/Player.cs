@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
 	public Transform enemyTransform;
 	public GameObject bombPrefab;
 	public List<Transform> asteroidTransforms;
-	public Transform player;
+	public Transform playerTransform;
 	public float maxSpeed = 1f;
 	float time;
 	float lerpLength;
@@ -277,5 +277,7 @@ public class Player : MonoBehaviour
 			}
 		}
 	}
+	#endregion
+	#region Assignment #1
 	#endregion
 }
