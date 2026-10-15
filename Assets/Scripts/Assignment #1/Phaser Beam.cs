@@ -15,11 +15,13 @@ public class PhaserBeam : MonoBehaviour
     }
 	void Phaser()
 	{
+		//Local float is equal to a Vector3 that tracks distance between player and enemy
 		float distanceToEnemy = Vector3.Distance(transform.position, enemyTransform.position);
 
-
+		//Ensure the enemy transform isn't null to prevent errors
 		if (enemyTransform != null)
 		{
+			//If the distance between the player and enemy is less than or equal to the radius float, draw a cyan colored line from the player to the enemy transform
 			if (distanceToEnemy <= radius)
 			{
 				Debug.DrawLine(transform.position, enemyTransform.position, Color.cyan);
