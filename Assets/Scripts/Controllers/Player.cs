@@ -278,6 +278,4 @@ public class Player : MonoBehaviour
 		}
 	}
 	#endregion
-	#region Assignment #1
-	#endregion
 }

@@ -11,12 +11,6 @@ public class BombOrbit : MonoBehaviour
     //Transform to get the player's current position and mnake the bomb rotate around it
     public Transform playerTransform;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
     void Update()
     {
