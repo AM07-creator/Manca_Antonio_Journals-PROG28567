@@ -7,7 +7,6 @@ public class PhaserBeam : MonoBehaviour
 	public Transform enemyTransform;
 	//A float for the radius the player must be within the enemy to draw a phaser
 	public float radius = 2.5f;
-
     // Update is called once per frame
     void Update()
     {

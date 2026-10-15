@@ -651,8 +651,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FaceOff
   angularSpeed: 1000
-  target: {fileID: 1441953408}
   facingRadius: 5
+  target: {fileID: 1441953408}
+--- !u!114 &952533750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 702362961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0148aed755c07044696cf6b7a5677b59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WarpToBattle
+  maxWarpDistance: 2.5
+  enemyTransform: {fileID: 1441953408}
+  playerTransform: {fileID: 952533744}
 --- !u!1001 &1220048545
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -925,8 +940,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FaceOff
   angularSpeed: 100
-  target: {fileID: 952533744}
   facingRadius: 5
+  target: {fileID: 952533744}
 --- !u!1001 &1522834009
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1459,6 +1474,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1742679311805458, guid: abc125f00ae369940b2c5c0275186637, type: 3}
       insertIndex: -1
       addedObject: {fileID: 952533749}
+    - targetCorrespondingSourceObject: {fileID: 1742679311805458, guid: abc125f00ae369940b2c5c0275186637, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 952533750}
   m_SourcePrefab: {fileID: 100100000, guid: abc125f00ae369940b2c5c0275186637, type: 3}
 --- !u!1 &2044058676
 GameObject:
