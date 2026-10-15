@@ -25,8 +25,8 @@ public class BombOrbit : MonoBehaviour
 		angle += speed * Time.deltaTime;
 
 		//Calculate the x and y position of the points where the moon will be. The playerTransform position on both x and y axis.
-        //Add a Math function of Cosine Inverse for X, returning us the angle and multiplying it by the radius from the player
-        //Add a Math function of Sine Inverse for Y, returning us the angle and multiplying it by the radius from the player
+        //Add a Math function of Cosine for X, returning us the angle and multiplying it by the radius from the player
+        //Add a Math function of Sine for Y, returning us the angle and multiplying it by the radius from the player
 		float x = playerTransform.position.x + Mathf.Cos(angle) * radius;
 		float y = playerTransform.position.y + Mathf.Sin(angle) * radius;
 

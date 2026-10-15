@@ -598,7 +598,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1409900303673908, guid: e3900e4d87ee29c43ad1d9098b51432c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1441953410}
   m_SourcePrefab: {fileID: 100100000, guid: e3900e4d87ee29c43ad1d9098b51432c, type: 3}
 --- !u!4 &952533744 stripped
 Transform:
@@ -619,7 +622,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Player2
   accelerationTime: 1
   decelerationTime: 1
-  maxSpeed: 1
+  maxSpeed: 3
   angularSpeed: 90
 --- !u!114 &952533748
 MonoBehaviour:
@@ -635,6 +638,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PhaserBeam
   enemyTransform: {fileID: 1441953408}
   radius: 5
+--- !u!114 &952533749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 702362961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9efc949e5877c64a92660732e6e8633, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FaceOff
+  angularSpeed: 1000
+  target: {fileID: 1441953408}
+  facingRadius: 5
 --- !u!1001 &1220048545
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -783,6 +801,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4194190890010494449, guid: 462add3d0f7c62a4682e9c053b00ec93, type: 3}
   m_PrefabInstance: {fileID: 1282445454}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1353093083 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1409900303673908, guid: e3900e4d87ee29c43ad1d9098b51432c, type: 3}
+  m_PrefabInstance: {fileID: 925799359}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1395548861
 GameObject:
   m_ObjectHideFlags: 0
@@ -889,6 +912,21 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4504276444959460, guid: e3900e4d87ee29c43ad1d9098b51432c, type: 3}
   m_PrefabInstance: {fileID: 925799359}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1441953410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1353093083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9efc949e5877c64a92660732e6e8633, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FaceOff
+  angularSpeed: 100
+  target: {fileID: 952533744}
+  facingRadius: 5
 --- !u!1001 &1522834009
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1418,6 +1456,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1742679311805458, guid: abc125f00ae369940b2c5c0275186637, type: 3}
       insertIndex: -1
       addedObject: {fileID: 952533748}
+    - targetCorrespondingSourceObject: {fileID: 1742679311805458, guid: abc125f00ae369940b2c5c0275186637, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 952533749}
   m_SourcePrefab: {fileID: 100100000, guid: abc125f00ae369940b2c5c0275186637, type: 3}
 --- !u!1 &2044058676
 GameObject:
@@ -1449,7 +1490,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec5a802c088df2b4f806059005f68e99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Turret
-  angularSpeed: 1
+  angularSpeed: 1000
   target: {fileID: 1441953408}
 --- !u!212 &2044058678
 SpriteRenderer:
