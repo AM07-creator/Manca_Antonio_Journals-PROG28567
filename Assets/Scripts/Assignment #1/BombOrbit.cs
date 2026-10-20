@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 using static UnityEngine.GraphicsBuffer;
 
@@ -10,11 +11,17 @@ public class BombOrbit : MonoBehaviour
     float angle;
     //Transform to get the player's current position and mnake the bomb rotate around it
     public Transform playerTransform;
+	Vector3 bombZ = new(0, 0, 10);
 
-    // Update is called once per frame
-    void Update()
+	// Update is called once per frame
+	void Update()
     {
-        BombRevolve(radius, speed, playerTransform);
+		if (Keyboard.current.oKey.wasPressedThisFrame)
+		{
+			transform.position = bombZ;
+		}
+
+		BombRevolve(radius, speed, playerTransform);
     }
 	void BombRevolve(float radius, float speed, Transform playerTransform)
 	{
