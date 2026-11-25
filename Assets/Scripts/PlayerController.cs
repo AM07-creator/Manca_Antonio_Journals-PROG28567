@@ -3,77 +3,146 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    public float speed = 0.01f;
-    Vector2 movingDirection = Vector2.zero;
-    FacingDirection lastFacingDirection = FacingDirection.right;
-    Rigidbody2D rb;
+    // Debug.DrawRay(transform.position, Vector3.down * 1f, Color.red);
+
     public enum FacingDirection
     {
         left, right
     }
 
+    [Header("References")]
+    public Rigidbody2D body2D;
+
+    [Header("Horizontal")]
+    public float maxSpeed = 5f;
+    public float accelerationTime = 0.25f;
+    public float decelerationTime = 0.15f;
+
+    [Header("Vertical")]
+    public float apexHeight = 3f;
+    public float apexTime = 0.5f;
+
+    [Header("Ground Checking")]
+    public Vector2 groundCheckOffset = new (0f, -0.65f);
+    public Vector2 groundCheckSize = new(0.5f, 0.1f);
+    public LayerMask groundCheckMask;
+
+    private float acceleration;
+    private float deceleration;
+
+    private float gravity;
+    private float jumpVelocity;
+    private float terminalVelocity;
+
+    private Vector2 velocity;
+
+    private bool isGrounded = false;
+    private bool isJumping = false;
+
+    private FacingDirection facingDirection = FacingDirection.right;
+
+    private Keyboard keyboard;
+
     void Start()
     {
-        //Grab same rigidbody atatched to this game object
-        rb = GetComponent<Rigidbody2D>();
+        body2D.gravityScale = 0;
+
+        acceleration = maxSpeed / accelerationTime;
+        deceleration = maxSpeed / decelerationTime;
+
+        gravity = -2 * apexHeight / Mathf.Pow(apexTime, 2);
+        jumpVelocity = 2 * apexHeight / apexTime;
+        terminalVelocity = gravity;
+
+        keyboard = Keyboard.current;
     }
 
     void Update()
     {
+        CheckForGround();
 
-		Vector2 playerInput = new Vector2();
+        Vector2 playerInput = new ();
 
-        // The input from the player needs to be determined and
-        // then passed in the to the MovementUpdate which should
-        // manage the actual movement of the character.
+        if (keyboard.aKey.isPressed)
+        {
+            playerInput.x += -1;
+            facingDirection = FacingDirection.left;
+        }
+
+        if (keyboard.dKey.isPressed)
+        {
+            playerInput.x += 1;
+            facingDirection = FacingDirection.right;
+        }
+
+        if (keyboard.spaceKey.wasPressedThisFrame && isGrounded)
+        {
+            isJumping = true;
+        }
 
         MovementUpdate(playerInput);
     }
 
     private void MovementUpdate(Vector2 playerInput)
     {
-        //Movement method is my own code, taken from Programming 2. Readily available method of adding input
-		bool isLeftHeld = Keyboard.current.leftArrowKey.isPressed;
-		if (isLeftHeld == true)
-		{
-			transform.position -= transform.right * speed * Time.deltaTime;
-		}
-		bool isRightHeld = Keyboard.current.rightArrowKey.isPressed;
-		if (isRightHeld == true)
-		{
-			transform.position += transform.right * speed * Time.deltaTime;
-		}
-	}
+        if (playerInput.x != 0)
+        {
+            velocity.x += acceleration * playerInput.x * Time.deltaTime;
+			velocity.x = Mathf.Clamp(velocity.x, -maxSpeed, maxSpeed);
+        }
+        else
+        {
+            velocity.x = Mathf.MoveTowards(velocity.x, 0, deceleration * Time.deltaTime);
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (!isGrounded)
+        {
+            velocity.y += gravity * Time.fixedDeltaTime;
+            velocity.y = Mathf.Clamp(velocity.y, terminalVelocity, velocity.y);
+        }
+        else
+        {
+            velocity.y = 0;
+        }
+
+        if (isJumping)
+        {
+            velocity.y = jumpVelocity;
+            isJumping = false;
+        }
+        
+        body2D.linearVelocity = velocity;
+    }
+
+    private void CheckForGround()
+    {
+        isGrounded = Physics2D.OverlapBox(
+            transform.position + (Vector3)groundCheckOffset,
+            groundCheckSize,
+            0,
+            groundCheckMask);
+    }
 
     public bool IsWalking()
     {
+        return velocity.x != 0;
+    }
 
-		bool isLeftHeld = Keyboard.current.leftArrowKey.isPressed;
-		bool isRightHeld = Keyboard.current.rightArrowKey.isPressed;
-
-        return isLeftHeld != isRightHeld;
-
-	}
     public bool IsGrounded()
     {
-        //The absolute linearVelocity of the vertical axis. If the vertical speed is less than a number that's basically 0, then the player is considered to be grounded. Otherwise, it's false and the player is falling through the air
-		return Mathf.Abs(rb.linearVelocity.y) < 0.01f;
-	}
+        return isGrounded;
+    }
 
     public FacingDirection GetFacingDirection()
     {
-		bool isLeftHeld = Keyboard.current.leftArrowKey.isPressed;
-		bool isRightHeld = Keyboard.current.rightArrowKey.isPressed;
+        return facingDirection;
+    }
 
-		if (isLeftHeld && !isRightHeld)
-		{
-			lastFacingDirection = FacingDirection.left;
-		}
-		else if (isRightHeld && !isLeftHeld)
-		{
-			lastFacingDirection = FacingDirection.right;
-		}
-
-		return lastFacingDirection;
-	}
+    public void OnDrawGizmos()
+    {
+        Gizmos.DrawWireCube(transform.position + (Vector3)groundCheckOffset, groundCheckSize);
+    }
 }

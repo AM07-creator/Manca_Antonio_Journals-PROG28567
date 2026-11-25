@@ -4210,18 +4210,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 908299246075705003, guid: c0063abd85bf41b4faef95c439286949, type: 3}
+      propertyPath: playerController
+      value: 
+      objectReference: {fileID: 380324919920706564}
     - target: {fileID: 7428298229329625348, guid: c0063abd85bf41b4faef95c439286949, type: 3}
       propertyPath: speed
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7428298229329625348, guid: c0063abd85bf41b4faef95c439286949, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8927549095852432977, guid: c0063abd85bf41b4faef95c439286949, type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7428298229329625348, guid: c0063abd85bf41b4faef95c439286949, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8927549095852432977, guid: c0063abd85bf41b4faef95c439286949, type: 3}
+      insertIndex: 1
+      addedObject: {fileID: 380324919920706564}
     - targetCorrespondingSourceObject: {fileID: 8927549095852432977, guid: c0063abd85bf41b4faef95c439286949, type: 3}
       insertIndex: -1
       addedObject: {fileID: 380324919920706560}
@@ -4294,8 +4306,8 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_AngularDamping: 0
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -4305,8 +4317,31 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &380324919920706564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 380324919920706558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fce18eee35353b4781f0a451cdd0854, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerController
+  body2D: {fileID: 380324919920706560}
+  maxSpeed: 5
+  accelerationTime: 0.25
+  decelerationTime: 0.15
+  apexHeight: 3
+  apexTime: 0.5
+  groundCheckOffset: {x: 0, y: -0.65}
+  groundCheckSize: {x: 0.5, y: 0.1}
+  groundCheckMask:
+    serializedVersion: 2
+    m_Bits: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

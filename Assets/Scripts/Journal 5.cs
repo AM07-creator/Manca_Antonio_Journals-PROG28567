@@ -7,8 +7,6 @@ public class Journal5 : MonoBehaviour
 	public PhysicsMaterial2D physBod;
 	public PhysicsMaterialCombine2D combineBodA;
 	public PhysicsMaterialCombine2D combineBodB;
-	float a = 10f;
-	float b = 0f;
 	public Rigidbody2D simBod;
 	public Vector3 windy;
 	public float gustPower = 10f;
