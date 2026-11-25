@@ -47,7 +47,6 @@ public class PlayerController : MonoBehaviour
 
     public bool IsWalking()
     {
-        return false;
 
 		bool isLeftHeld = Keyboard.current.leftArrowKey.isPressed;
 		bool isRightHeld = Keyboard.current.rightArrowKey.isPressed;
